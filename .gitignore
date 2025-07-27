@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# pytest cache
+.pytest_cache/
+
+# VS Code settings
+.vscode/
+
+# Virtual environment
+venv/
+env/
+
+# Mac OS / Windows / Linux system files
+.DS_Store
+Thumbs.db
+
+# Logs and debug
+*.log
+
+# Python egg
+*.egg-info/
+*.egg
+
+# Pip wheel cache
+*.whl
+
+# Test coverage
+htmlcov/
+.coverage
+.tox/
+
+# IDEs
+.idea/
