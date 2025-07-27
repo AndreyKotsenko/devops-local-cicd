@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-local-cicd-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-local-cicd
+  template:
+    metadata:
+      labels:
+        app: devops-local-cicd
+    spec:
+      containers:
+        - name: devops-local-cicd-container
+          image: andromedaa/devops-local-cicd:latest
+          ports:
+            - containerPort: 5000
