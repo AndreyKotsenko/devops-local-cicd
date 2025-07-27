@@ -2,9 +2,10 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+#Glory to Ukraine!
 @app.route("/")
 def home():
-    return jsonify({"message": "Hello, DevOps World! Glory to Ukrain!"})
+    return jsonify({"message": "Hello, DevOps World!"})
 
 @app.route("/health")
 def health():
