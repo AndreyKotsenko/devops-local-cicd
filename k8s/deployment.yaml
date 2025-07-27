@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: devops-local-cicd-container
-          image: andromedaa/devops-local-cicd:sha-1dddc449ecfcb04467ed27d0b9a743bbdac61353
+          image: andromedaa/devops-local-cicd:sha-00af2edf4934bef09bc2a9d0c6863193d934cafb
           ports:
             - containerPort: 5000
