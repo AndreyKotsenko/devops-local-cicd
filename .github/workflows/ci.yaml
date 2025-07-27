@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'k8s/**'
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO }}
@@ -52,11 +54,12 @@ jobs:
       - name: Update image tag in deployment.yaml
         run: |
           sed -i "s|image: .*|image: $IMAGE_NAME:sha-${{ github.sha }}|" k8s/deployment.yaml
-          
+
       - name: Commit and push updated manifest
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add k8s/deployment.yaml
           git commit -m "Update image tag to sha-${{ github.sha }}"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
           git push
