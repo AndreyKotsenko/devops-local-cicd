@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO }}
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -42,4 +45,18 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+
+            - name: Update image tag in deployment.yaml
+        run: |
+          sed -i "s|image: .*|image: $IMAGE_NAME:sha-${{ github.sha }}|" k8s/deployment.yaml
+
+      - name: Commit and push updated manifest
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add k8s/deployment.yaml
+          git commit -m "Update image tag to sha-${{ github.sha }}"
+          git push
